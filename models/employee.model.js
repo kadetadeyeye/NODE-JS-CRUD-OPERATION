@@ -1,26 +1,29 @@
 const mongoose = require('mongoose');
 
 var employeeSchema = new mongoose.Schema({
-full_name: {
+fullName: {
     type: String,
-    required: 'Full Name is required.'
+    required: 'Full name is required'
 },
 email: {
-    type: String
+    type: String,
+    
 },
 mobile: {
     type: String,
-    required: 'Mobile is required'
+    
+   
 },
 city: {
     type: String
+   
 }
 });
 
 //custom validation for email
 employeeSchema.path('email').validate((val) =>{
-    emailRegex = /^(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return emailRegex.test(val);
+   var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+ return emailRegex.test(String(val).toLowerCase());
 }, 'Invalid email.');
 
 mongoose.model('Employee', employeeSchema)
